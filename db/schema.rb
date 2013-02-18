@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130131042456) do
+ActiveRecord::Schema.define(:version => 20130218040601) do
+
+  create_table "contests", :force => true do |t|
+    t.text     "prize"
+    t.boolean  "present_to_win"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer  "sponsor_id"
+    t.integer  "meeting_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
   create_table "exhibitor_categories", :force => true do |t|
     t.string   "name"
@@ -19,16 +30,18 @@ ActiveRecord::Schema.define(:version => 20130131042456) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "exhibitors", :force => true do |t|
+  create_table "exhibitors", :id => false, :force => true do |t|
+    t.integer  "id",                    :null => false
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
-    t.integer  "exhibitor_categories_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
     t.integer  "exhibitor_category_id"
+    t.integer  "sponsor_id"
   end
 
-  create_table "meetings", :force => true do |t|
+  create_table "meetings", :id => false, :force => true do |t|
+    t.integer  "id",         :null => false
     t.string   "name"
     t.datetime "start_date"
     t.datetime "end_date"
@@ -42,7 +55,8 @@ ActiveRecord::Schema.define(:version => 20130131042456) do
     t.integer "sponsor_id"
   end
 
-  create_table "sponsors", :force => true do |t|
+  create_table "sponsors", :id => false, :force => true do |t|
+    t.integer  "id",           :null => false
     t.string   "url"
     t.string   "logo"
     t.datetime "created_at",   :null => false

@@ -59,7 +59,8 @@ class MeetingsController < ApplicationController
   # PUT /meetings/1.json
   def update
     @meeting = Meeting.find(params[:id])
-
+    params[:meeting][:sponsor_ids]||=[]
+    
     respond_to do |format|
       if @meeting.update_attributes(params[:meeting])
         format.html { redirect_to @meeting, notice: 'Meeting was successfully updated.' }
